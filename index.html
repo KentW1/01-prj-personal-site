@@ -2,10 +2,216 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Personal Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Add your HTML content here -->
+  <!-- Top header: this is a small banner at the top of the page. It does not have navigation links. -->
+  <header class="top-header">
+    <div class="container top-header-inner">
+      <p class="top-label">Student Web Portfolio</p>
+      <p class="top-note">A clean showcase for art, skills, and projects.</p>
+    </div>
+  </header>
+
+  <!-- Main page layout: sidebar on the left and main content on the right. -->
+  <main class="page-layout container">
+    <aside class="sidebar">
+      <!-- Sidebar profile card: put your picture, name, title, and stats here. -->
+      <div class="profile-card">
+        <div class="profile-image">Your Photo</div>
+        <h1>Your Name</h1>
+        <p class="profile-role">Web Development Student</p>
+        <p class="profile-text">Building clean, modern websites with a bold Steam-inspired color palette.</p>
+
+        <div class="profile-stats">
+          <!-- Profile stats: use these boxes to show things like project count, art pieces, or skills. -->
+          <div>
+            <strong>12</strong>
+            <span>Projects</span>
+          </div>
+          <div>
+            <strong>3</strong>
+            <span>Art Pieces</span>
+          </div>
+          <div>
+            <strong>Learning</strong>
+            <span>Web Design</span>
+          </div>
+        </div>
+
+        <!-- Sidebar navigation: these links jump to sections on the page. -->
+        <nav class="sidebar-nav">
+          <a href="#hero">Home</a>
+          <a href="#art">Art</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#bio">Bio</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-card">
+        <h2>Profile Info</h2>
+        <p>Fresh student work, a gallery of art, and new projects all in one place. Edit any section as you learn.</p>
+      </div>
+    </aside>
+
+    <div class="main-column">
+      <section id="hero" class="hero-card">
+        <!-- Hero introduction: write a short welcome message and quick links to important sections. -->
+        <span class="eyebrow">Portfolio</span>
+        <h1>Designing websites with style and clarity.</h1>
+        <p>Welcome to a student portfolio inspired by Steam and GitHub layout patterns. Start with the hero section, then explore art, skills, and school projects.</p>
+        <div class="hero-actions">
+          <!-- Buttons in the hero area that jump to the gallery or project section. -->
+          <a class="button" href="#art">View Art Gallery</a>
+          <a class="button ghost" href="#projects">See Projects</a>
+        </div>
+      </section>
+
+      <section id="art" class="section-card art-section">
+        <div class="section-header">
+          <div>
+            <h2>Art I Created</h2>
+            <p>Click any artwork to open the focused view. Use the arrows or keys to move between pieces.</p>
+          </div>
+        </div>
+
+        <div class="gallery-layout">
+          <!-- Thumbnail window: use arrows to move the visible section of thumbnails. -->
+          <div class="thumb-window">
+            <button class="thumb-arrow left" type="button" aria-label="Previous thumbnails">←</button>
+            <div class="thumb-row" role="tablist" aria-label="Artwork thumbnails">
+              <button class="thumb-card active" data-index="0">
+                <div class="card-image">Art 1</div>
+                <p>Concept Art</p>
+              </button>
+              <button class="thumb-card" data-index="1">
+                <div class="card-image">Art 2</div>
+                <p>Poster Design</p>
+              </button>
+              <button class="thumb-card" data-index="2">
+                <div class="card-image">Art 3</div>
+                <p>Digital Illustration</p>
+              </button>
+              <button class="thumb-card" data-index="3">
+                <div class="card-image">Art 4</div>
+                <p>Character Study</p>
+              </button>
+              <button class="thumb-card" data-index="4">
+                <div class="card-image">Art 5</div>
+                <p>Logo Sketch</p>
+              </button>
+              <button class="thumb-card" data-index="5">
+                <div class="card-image">Art 6</div>
+                <p>Game Poster</p>
+              </button>
+              <button class="thumb-card" data-index="6">
+                <div class="card-image">Art 7</div>
+                <p>Interface Concept</p>
+              </button>
+            </div>
+            <button class="thumb-arrow right" type="button" aria-label="Next thumbnails">→</button>
+          </div>
+
+          <div class="main-art-card-wrapper">
+            <button class="main-art-card" type="button" aria-label="Open artwork in focused view">
+              <div class="card-image main-image">Concept Art</div>
+              <div class="main-art-text">
+                <h3>Concept Art</h3>
+                <p>Character and environment sketches with bold color and clean lines.</p>
+              </div>
+            </button>
+            <p class="gallery-note">Click the artwork to view it in a larger focused mode.</p>
+          </div>
+        </div>
+
+        <!-- Focus overlay: this section is hidden until the user clicks a thumbnail or main image. -->
+        <div class="focus-overlay hidden" id="artFocus" aria-hidden="true">
+          <div class="focus-panel">
+            <!-- The X button closes the focused artwork view. -->
+            <button class="close-button" type="button" aria-label="Close focused artwork view">×</button>
+            <div class="focus-large-image">Concept Art</div>
+            <div class="focus-copy">
+              <h3>Concept Art</h3>
+              <p>Character and environment sketches with bold color and clean lines.</p>
+            </div>
+            <div class="focus-controls">
+              <!-- Buttons here move to the previous or next art item. -->
+              <button class="focus-button prev" type="button">← Previous</button>
+              <button class="focus-button next" type="button">Next →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills section: list the coding tools and design ideas you are learning. -->
+      <section id="skills" class="section-card">
+        <h2>Skills</h2>
+        <p>These are the tools and skills I am learning and using right now.</p>
+        <div class="skill-list">
+          <span>HTML</span>
+          <span>CSS</span>
+          <span>JavaScript</span>
+          <span>Responsive Design</span>
+          <span>Wireframing</span>
+          <span>Project Planning</span>
+        </div>
+      </section>
+
+      <section id="projects" class="section-card">
+        <!-- Projects section: use this area to add details about your school and personal projects. -->
+        <h2>Projects</h2>
+        <p>Personal and school projects that show the work I am building for web development class.</p>
+        <div class="card-grid">
+          <article class="card">
+            <h3>School Project 1</h3>
+            <p>A web page created during class, focusing on layout and user experience.</p>
+          </article>
+          <article class="card">
+            <h3>School Project 2</h3>
+            <p>A small site built with HTML and CSS to practice responsive design.</p>
+          </article>
+          <article class="card">
+            <h3>Personal Project</h3>
+            <p>A creative portfolio page or mini application made in free time.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="bio" class="section-card bio-card">
+        <!-- Bio section: this is where you write about yourself and your learning goals. -->
+        <h2>About Me</h2>
+        <p>I am a student learning web development. I enjoy making clean designs and improving my coding skills every day. This section is a place to add your own story, interests, and goals.</p>
+        <p>Filler text: I am working on learning HTML, CSS, and JavaScript. My goal is to build attractive websites that are easy to use. I like exploring new design ideas and practicing with small projects.</p>
+        <p>Filler text: In the future, I want to create websites that look polished and feel smooth. I am excited to continue learning and sharing my work here.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 My Portfolio</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript controls for the artwork thumbnail window. -->
+  <script>
+    const thumbRow = document.querySelector('.thumb-row');
+    const thumbButtons = document.querySelectorAll('.thumb-card');
+    const thumbLeft = document.querySelector('.thumb-arrow.left');
+    const thumbRight = document.querySelector('.thumb-arrow.right');
+
+    function scrollThumbnails(direction) {
+      const thumbWidth = thumbButtons[0].offsetWidth;
+      const gap = 16;
+      const step = thumbWidth + gap;
+      thumbRow.scrollBy({ left: direction * step, behavior: 'smooth' });
+    }
+
+    thumbLeft.addEventListener('click', () => scrollThumbnails(-1));
+    thumbRight.addEventListener('click', () => scrollThumbnails(1));
+  </script>
 </body>
 </html>
