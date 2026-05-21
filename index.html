@@ -4,204 +4,242 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
+  <!-- Main stylesheet: contains only the selectors used by this HTML -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Top header: this is a small banner at the top of the page. It does not have navigation links. -->
+  <!-- TOP HEADER: small banner with page title and short note -->
   <header class="top-header">
     <div class="container top-header-inner">
-      <p class="top-label">Student Web Portfolio</p>
-      <p class="top-note">A clean showcase for art, skills, and projects.</p>
+      <p class="top-label">Kent Wilkison's Web Portfolio</p>
+      <p class="top-note">A special curation of the artwork and projects I've created.</p>
     </div>
   </header>
 
-  <!-- Main page layout: sidebar on the left and main content on the right. -->
+  <!-- MAIN LAYOUT: sidebar (left) + main column (right) -->
   <main class="page-layout container">
+    <!-- SIDEBAR: profile + quick links -->
     <aside class="sidebar">
       <!-- Sidebar profile card: put your picture, name, title, and stats here. -->
       <div class="profile-card">
         <div class="profile-image">Your Photo</div>
-        <h1>Your Name</h1>
-        <p class="profile-role">Web Development Student</p>
-        <p class="profile-text">Building clean, modern websites with a bold Steam-inspired color palette.</p>
+        <h1>Kent Wilkison</h1>
+        <p class="profile-role">Computer Science Student with Minor in Math and Emphasis in Gaming</p>
+        <p class="profile-text">Hey! I'm Kent Wilkison and I'm a Computer Science student at the University of Utah. I'm passionate about creating code that makes a difference, whether it be for cybersecurity or game development.</p>
 
-        <div class="profile-stats">
-          <!-- Profile stats: use these boxes to show things like project count, art pieces, or skills. -->
-          <div>
-            <strong>12</strong>
-            <span>Projects</span>
-          </div>
-          <div>
-            <strong>3</strong>
-            <span>Art Pieces</span>
-          </div>
-          <div>
-            <strong>Learning</strong>
-            <span>Web Design</span>
-          </div>
-        </div>
-
-        <!-- Sidebar navigation: these links jump to sections on the page. -->
-        <nav class="sidebar-nav">
+        <!-- Navigation links that jump to sections in the page -->
+        <nav class="sidebar-nav" aria-label="Main sections">
           <a href="#hero">Home</a>
-          <a href="#art">Art</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
+          <a href="#art">Art</a>
           <a href="#bio">Bio</a>
         </nav>
       </div>
 
+      <!-- CONTACT / PROFILE INFO: plain links for external profiles -->
       <div class="sidebar-card">
         <h2>Profile Info</h2>
-        <p>Fresh student work, a gallery of art, and new projects all in one place. Edit any section as you learn.</p>
+        <p>Use these links to get in contact with me!</p>
+        <ul>
+          <li>Email: <a href="mailto:kentwilkison@gmail.com">kentwilkison@gmail.com</a></li>
+          <li>Youtube: <a href="https://www.youtube.com/@kruncher_">kruncher_</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/kentwilkison122004/">kentwilkison122004</a></li>
+          <li>Github: <a href="https://github.com/KentW1">KentW1</a></li>
+        </ul>
       </div>
     </aside>
 
+    <!-- MAIN COLUMN: hero, galleries, skills, projects, about -->
     <div class="main-column">
+      <!-- HERO: landing intro and primary CTAs -->
       <section id="hero" class="hero-card">
-        <!-- Hero introduction: write a short welcome message and quick links to important sections. -->
         <span class="eyebrow">Portfolio</span>
-        <h1>Designing websites with style and clarity.</h1>
-        <p>Welcome to a student portfolio inspired by Steam and GitHub layout patterns. Start with the hero section, then explore art, skills, and school projects.</p>
+        <h1>Kent's Spectacular Work</h1>
+        <p>This is a collection of the projects and art pieces I've created over the years. This website primarily showcases my work created during my college career. Personal, Academic, and Professional projects are all featured here. Use this website to explore my work and see what I've been up to!</p>
         <div class="hero-actions">
-          <!-- Buttons in the hero area that jump to the gallery or project section. -->
           <a class="button" href="#art">View Art Gallery</a>
           <a class="button ghost" href="#projects">See Projects</a>
         </div>
       </section>
 
-      <section id="art" class="section-card art-section">
+      <!-- ART GALLERY: thumbnails + focused viewer
+           Data-flow notes for maintainers:
+           - Thumbnails are buttons with `data-index` attributes (0..n).
+           - JavaScript looks up `#art .thumb-card` and updates `#artFocus` content.
+           - Keep `data-index` in sync with the artItems array in the script below. -->
+      <section id="art" class="section-card">
         <div class="section-header">
           <div>
             <h2>Art I Created</h2>
-            <p>Click any artwork to open the focused view. Use the arrows or keys to move between pieces.</p>
+            <p>Click any artwork to open the focused view. Click on the arrow keys to navigate between pieces, and click on any artwork to see a focused view along with a brief history!</p>
           </div>
         </div>
 
         <div class="gallery-layout">
-          <!-- Thumbnail window: use arrows to move the visible section of thumbnails. -->
           <div class="thumb-window">
             <button class="thumb-arrow left" type="button" aria-label="Previous thumbnails">←</button>
             <div class="thumb-row" role="tablist" aria-label="Artwork thumbnails">
-              <button class="thumb-card active" data-index="0">
-                <div class="card-image">Art 1</div>
-                <p>Concept Art</p>
+              <!-- Each thumb-card must have a matching entry in the artItems array (script) -->
+              <button class="thumb-card active" data-index="0" aria-label="View Thrilling Of Tremors">
+                <div class="card-image">
+                  <img src="img/“Thrilling Of Tremors”.PNG" alt="Thrilling Of Tremors">
+                </div>
               </button>
-              <button class="thumb-card" data-index="1">
-                <div class="card-image">Art 2</div>
-                <p>Poster Design</p>
+              <button class="thumb-card" data-index="1" aria-label="View Kruncher 3D Model">
+                <div class="card-image">
+                  <img src="img/Kruncher 3D Model.png" alt="Kruncher 3D Model">
+                </div>
               </button>
-              <button class="thumb-card" data-index="2">
-                <div class="card-image">Art 3</div>
-                <p>Digital Illustration</p>
+              <button class="thumb-card" data-index="2" aria-label="View Lost Recruit">
+                <div class="card-image">
+                  <img src="img/Lost Recruit.JPG" alt="Lost Recruit">
+                </div>
               </button>
-              <button class="thumb-card" data-index="3">
-                <div class="card-image">Art 4</div>
-                <p>Character Study</p>
-              </button>
-              <button class="thumb-card" data-index="4">
-                <div class="card-image">Art 5</div>
-                <p>Logo Sketch</p>
-              </button>
-              <button class="thumb-card" data-index="5">
-                <div class="card-image">Art 6</div>
-                <p>Game Poster</p>
-              </button>
-              <button class="thumb-card" data-index="6">
-                <div class="card-image">Art 7</div>
-                <p>Interface Concept</p>
+              <button class="thumb-card" data-index="3" aria-label="View When Overload Breaks">
+                <div class="card-image">
+                  <img src="img/When Overload breaks.png" alt="When Overload Breaks">
+                </div>
               </button>
             </div>
             <button class="thumb-arrow right" type="button" aria-label="Next thumbnails">→</button>
           </div>
 
-          <div class="main-art-card-wrapper">
-            <button class="main-art-card" type="button" aria-label="Open artwork in focused view">
-              <div class="card-image main-image">Concept Art</div>
-              <div class="main-art-text">
-                <h3>Concept Art</h3>
-                <p>Character and environment sketches with bold color and clean lines.</p>
+          <!-- Focus overlay: the JS swaps the image, title, and description here -->
+          <div class="focus-overlay" id="artFocus" aria-hidden="false">
+            <div class="focus-panel">
+              <div class="focus-large-image">
+                <img src="img/“Thrilling Of Tremors”.PNG" alt="Thrilling Of Tremors">
               </div>
-            </button>
-            <p class="gallery-note">Click the artwork to view it in a larger focused mode.</p>
-          </div>
-        </div>
-
-        <!-- Focus overlay: this section is hidden until the user clicks a thumbnail or main image. -->
-        <div class="focus-overlay hidden" id="artFocus" aria-hidden="true">
-          <div class="focus-panel">
-            <!-- The X button closes the focused artwork view. -->
-            <button class="close-button" type="button" aria-label="Close focused artwork view">×</button>
-            <div class="focus-large-image">Concept Art</div>
-            <div class="focus-copy">
-              <h3>Concept Art</h3>
-              <p>Character and environment sketches with bold color and clean lines.</p>
-            </div>
-            <div class="focus-controls">
-              <!-- Buttons here move to the previous or next art item. -->
-              <button class="focus-button prev" type="button">← Previous</button>
-              <button class="focus-button next" type="button">Next →</button>
+              <div class="focus-copy">
+                <h3>Thrilling Of Tremors</h3>
+                <p>This was made when I was in high school. It recreates the famous painting "The Creation of Adam" using characters from the asymmetrical horror game Dead by Daylight. It utilizes the character Ghost Face, and the Entity, the chaotic god that rules within the game. The title "Thrilling of Tremors" is a reference to Ghost Face's perk, Thrilling Tremors, which is a strong and versatile ability that prevents the survivors from making progress. I enjoyed Ghost Face as a character, since his gameplay was very unique from the rest of the cast, so I created this piece to signify that Ghost Face is a fun and intersting character, even if he isn't the strongest.</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Skills section: list the coding tools and design ideas you are learning. -->
+      <!-- SKILLS: simple badge list -->
       <section id="skills" class="section-card">
         <h2>Skills</h2>
-        <p>These are the tools and skills I am learning and using right now.</p>
+        <p>Here are the skills I have learned and utilized over my college career.</p>
         <div class="skill-list">
-          <span>HTML</span>
-          <span>CSS</span>
-          <span>JavaScript</span>
-          <span>Responsive Design</span>
-          <span>Wireframing</span>
-          <span>Project Planning</span>
+          <span>Java</span>
+          <span>C++</span>
+          <span>C#</span>
+          <span>Qt</span>
+          <span>Python</span>
+          <span>Unreal Engine</span>
+          <span>GameMaker</span>
+          <span>Digital Art</span>
+          <span>3D Modeling</span>
         </div>
       </section>
 
+      <!-- PROJECTS: short cards with external links -->
       <section id="projects" class="section-card">
-        <!-- Projects section: use this area to add details about your school and personal projects. -->
         <h2>Projects</h2>
         <p>Personal and school projects that show the work I am building for web development class.</p>
         <div class="card-grid">
           <article class="card">
-            <h3>School Project 1</h3>
-            <p>A web page created during class, focusing on layout and user experience.</p>
+            <h3>Backpacking Simulator</h3>
+            <p>Worked in a team of 6 to create an interactive simulation of a backpacking adventure. This was the final project for our CS3505 Software Practice class.
+
+            See the Github repo here:
+            <a href="https://github.com/UofU-CS3505/cs3505-assignment9-GreenGoombas" target="_blank">https://github.com/UofU-CS3505/cs3505-assignment9-GreenGoombas</a>
+            </p>
           </article>
           <article class="card">
-            <h3>School Project 2</h3>
-            <p>A small site built with HTML and CSS to practice responsive design.</p>
+            <h3>Untitled Cat Game</h3>
+            <p>Created over Summer of 2025 in Alternative Game Design class, I worked in a team of 5 people to create an interactive experience of what it takes to take care of a cat, yourself, and what it means to be a true friend.
+
+            Download and play the game here! <a href="https://krunchr.itch.io/untitled-cat-game" target="_blank">https://krunchr.itch.io/untitled-cat-game</a>
+            </p>
           </article>
           <article class="card">
-            <h3>Personal Project</h3>
-            <p>A creative portfolio page or mini application made in free time.</p>
+            <h3>Markov Text Generator</h3>
+            <p>The final project from my CS2420 class back in 2024, this project implemented a Markov chain algorithm to generate new text based on provided files.
+
+            See the Github repo here: <a href="https://github.com/KentW1/markov-text-generator" target="_blank">https://github.com/KentW1/markov-text-generator</a>
+            </p>
+          </article>
+          <article class="card">
+            <h3>Spreadsheet</h3>
+            <p>Worked with my partner Gerry on a simple spreadsheet application written in Java. Was one of the projects made in my CS3500 class. Utilized servers and networking concepts.
+            </p>
+            <p>
+            See the Github repo here: <a href="https://github.com/uofu-cs3500-20-fall2025/spreadsheet-KentW1" target="_blank">https://github.com/uofu-cs3500-20-fall2025/spreadsheet-KentW1</a>
+            </p>
           </article>
         </div>
       </section>
 
+      <!-- ABOUT / BIO -->
       <section id="bio" class="section-card bio-card">
         <!-- Bio section: this is where you write about yourself and your learning goals. -->
         <h2>About Me</h2>
-        <p>I am a student learning web development. I enjoy making clean designs and improving my coding skills every day. This section is a place to add your own story, interests, and goals.</p>
-        <p>Filler text: I am working on learning HTML, CSS, and JavaScript. My goal is to build attractive websites that are easy to use. I like exploring new design ideas and practicing with small projects.</p>
-        <p>Filler text: In the future, I want to create websites that look polished and feel smooth. I am excited to continue learning and sharing my work here.</p>
+        <p>Hey! I'm Kent, I'm a 21 year old (as of 2026), a California native, and a Computer Science student at the University of Utah. I like to ski, play video games, write sophisticated programs, and explore new technologies. I'm passionate about creating code that makes a difference, whether it be for cybersecurity or game development.</p>
+
+        <p>I'm passionate about learning about new technologies and improving my coding skills. Additionally, I have great interest in the field of AI and how it can be applied to solve real-world problems.</p>
+
+        <p>I chose computer science because I wanted to keep as many options available as possible while pursuing my interests in technology and problem-solving. I want to pursue a career in software engineering for defense companies, and hopefully on the side create some video games that I have dreamed about.</p>
       </section>
     </div>
   </main>
 
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container">
       <p>© 2026 My Portfolio</p>
     </div>
   </footer>
 
-  <!-- JavaScript controls for the artwork thumbnail window. -->
+  <!--
+    JavaScript for galleries
+    Notes for maintainers:
+    - The script below expects these DOM hooks to exist:
+      * Art: '#art .thumb-row', '#art .thumb-card', '#art .thumb-arrow.left', '#art .thumb-arrow.right', '#artFocus'
+    - If you change class names, update the selectors in the script accordingly.
+    - Thumbnails must use `data-index` (0-based) that line up with the arrays defined below.
+  -->
   <script>
-    const thumbRow = document.querySelector('.thumb-row');
-    const thumbButtons = document.querySelectorAll('.thumb-card');
-    const thumbLeft = document.querySelector('.thumb-arrow.left');
-    const thumbRight = document.querySelector('.thumb-arrow.right');
+    // ===== Art Gallery JavaScript =====
+    const thumbRow = document.querySelector('#art .thumb-row');
+    const thumbButtons = document.querySelectorAll('#art .thumb-card');
+    const thumbLeft = document.querySelector('#art .thumb-arrow.left');
+    const thumbRight = document.querySelector('#art .thumb-arrow.right');
+
+    const focusOverlay = document.querySelector('#artFocus');
+    const focusLargeImage = document.querySelector('#artFocus .focus-large-image img');
+    const focusTitle = document.querySelector('#artFocus .focus-copy h3');
+    const focusDescription = document.querySelector('#artFocus .focus-copy p');
+
+    // List of artwork details that match the thumbnails in order.
+    const artItems = [
+      {
+        label: 'Thrilling Of Tremors',
+        description: "This was made when I was in high school. It recreates the famous painting \"The Creation of Adam\" using characters from the asymmetrical horror game Dead by Daylight. It utilizes the killer Ghost Face and the Entity, who is an almighty malevolent being and creates the worlds experienced within the game. The title \"Thrilling of Tremors\" is a reference to Ghost Face's perk, Thrilling Tremors, which is a strong and versatile ability that prevents the survivors from making progress. The perk's description mentions that Ghost Face's cruel and cunning nature rouses the Entity in a way that earns the Entity's favor. I wanted to capture that in this digital artwork by showing that Ghost Face is the Entity's personal favorite. Additionally, I really enjoyed Ghost Face as a character, since his gameplay was very unique from the rest of the cast. I created this piece to signify that Ghost Face is a fun and intersting character, even if he isn't the strongest.",
+        src: 'img/“Thrilling Of Tremors”.PNG',
+      },
+      {
+        label: 'Kruncher 3D Model',
+        description: 'This 3D model was created in my first year of college. It was a final project for my 3D Modeling Class, where we had to create a Funko Pop! inspired figurine of any character of our choice. I chose to model the character Kruncher, who is an original character of mine. It was fun but also frustrating to make this model because we had used ZBrush, which paints on vertexes rather than on faces. Adapting to this unconventional workflow was hard, but it taught me a lot about 3D modeling. I have continued to pursue my passion for 3D art in other programs like Maya and Blender.',
+        src: 'img/Kruncher 3D Model.png',
+      },
+      {
+        label: 'Lost Recruit',
+        description: 'This art piece was made in highschool. This was made just for fun. One day I had the idea that it would be funny if Nemsis, the main antagonist of Resident Evil, enlisted into Dr. Zomboss\'s army. Dr Zomboss is the main antagonist of the Plants vs. Zombies franchise. I made it just to see what it would look like, and because I was a big fan of both of the franchises at the time.',
+        src: 'img/Lost Recruit.JPG',
+      },
+      {
+        label: 'When Overload Breaks',
+        description: 'This was made in highschool. It uses the character Toxic Brainz, a legendary variant of Super Brainz from my favorite game Garden Warfare 2, and crosses over the popular internet phenomenon "SCP-001: When Day Breaks". The SCP foundation is a fictional foundation that secures and contains anomalous objects and entities. One of the entites is called "When Day Breaks" and is considered a world ending phenomenon. Anyone who steps into the sunlight turns into wax, and the remaining survivors must hide underground away from the sun\'s now lethal rays. I wanted to combine this with the sludge theme that Toxic Brainz has, and make it look like as if he were actually melting.',
+        src: 'img/When Overload breaks.png',
+      },
+    ];
+
+    let currentIndex = 0;
 
     function scrollThumbnails(direction) {
       const thumbWidth = thumbButtons[0].offsetWidth;
@@ -210,8 +248,28 @@
       thumbRow.scrollBy({ left: direction * step, behavior: 'smooth' });
     }
 
+    function updateArtwork(index) {
+      currentIndex = index;
+      const art = artItems[index];
+      thumbButtons.forEach((button) => {
+        button.classList.toggle('active', Number(button.dataset.index) === index);
+      });
+      focusLargeImage.src = art.src;
+      focusLargeImage.alt = art.label;
+      focusTitle.textContent = art.label;
+      focusDescription.textContent = art.description;
+    }
+
+    thumbButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const index = Number(button.dataset.index);
+        updateArtwork(index);
+      });
+    });
     thumbLeft.addEventListener('click', () => scrollThumbnails(-1));
     thumbRight.addEventListener('click', () => scrollThumbnails(1));
+    updateArtwork(0);
+
   </script>
 </body>
 </html>

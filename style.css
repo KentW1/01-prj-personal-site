@@ -1,518 +1,148 @@
-/* Root variables: colors and theme settings for the whole page */
+/* Condensed & documented stylesheet: only selectors used by index.html
+   Notes:
+   - Keep selectors minimal so future edits are easier to maintain.
+   - Comments explain layout intent and any non-obvious choices. */
+
 :root {
+  /* Core color tokens used across the page */
   color-scheme: dark;
-  --bg: #081b3d;
-  --panel: rgba(14, 45, 84, 0.96);
-  --panel-soft: rgba(28, 72, 144, 0.92);
-  --text: #e8f1ff;
-  --muted: #b4c9f3;
-  --accent: #f6e285;
-  --accent-soft: rgba(246, 226, 133, 0.16);
-  --border: rgba(255, 255, 255, 0.08);
+  --panel: rgba(60, 108, 168, 0.96); /* card background */
+  --text: #ffd501; /* primary page text color */
+  --muted: #e4d362; /* secondary/supporting copy */
+  --accent: #ffa230; /* call-to-action accent */
+  --border: rgba(107, 207, 14, 0.752); /* subtle card borders */
 }
 
-* {
-  box-sizing: border-box; /* Make width and height include padding and border. */
-}
+/* Make sizing predictable for components */
+* { box-sizing: border-box; }
 
-/* Page background and text styles */
+/* Page background and base type */
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* layered gradients give a subtle vignette and color accents */
   background: radial-gradient(circle at top left, rgba(246, 226, 133, 0.12), transparent 25%),
               radial-gradient(circle at bottom right, rgba(97, 171, 255, 0.18), transparent 22%),
               linear-gradient(180deg, #07142e 0%, #081b3d 100%);
   color: var(--text);
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: hidden; /* prevent small horizontal scroll from thumbnails */
 }
 
-img {
-  max-width: 100%;
-  display: block;
-}
+/* Images should never overflow their containers */
+img { max-width: 100%; display: block; }
 
-.container {
-  width: min(1120px, calc(100% - 32px));
-  margin: 0 auto; /* Center the page content inside the browser window. */
-}
+/* Centered page container with comfortable margins */
+.container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
 
-/* Top header styles */
-.top-header {
-  background: rgba(14, 45, 84, 0.96);
-  border-bottom: 1px solid var(--border);
-}
-
+/* ----- Top header: small banner at page top ----- */
+.top-header { background: var(--panel); border-bottom: 1px solid var(--border); }
 .top-header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  width: min(1120px, calc(100% - 32px));
-  margin: 0 auto;
-  padding: 16px 0;
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  width: min(1120px, calc(100% - 32px)); margin:0 auto; padding:16px 0;
+}
+.top-label, .top-note { margin: 0; }
+.top-label { font-weight:700; text-transform:uppercase; letter-spacing:0.18em; font-size:0.9rem; }
+.top-note { color: var(--muted); font-size:0.95rem; }
+
+/* ----- Two-column layout: sidebar + main content ----- */
+.page-layout { display:grid; grid-template-columns:250px 1fr; gap:28px; padding:24px 0 40px; }
+.sidebar, .main-column { display:flex; flex-direction:column; gap:24px; }
+.sidebar { width:100%; max-width:250px; }
+
+/* Generic card used for many sections — keeps visual consistency */
+.profile-card, .sidebar-card, .hero-card, .section-card, .bio-card {
+  background: var(--panel); border:1px solid var(--border); border-radius:20px; padding:22px;
 }
 
-.top-label,
-.top-note {
-  margin: 0;
-}
-
-.top-label {
-  color: var(--text);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.9rem;
-}
-
-.top-note {
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-/* Page layout: sidebar on the left and main content on the right */
-.page-layout {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 28px;
-  padding: 24px 0 40px;
-}
-
-/* Sidebar sizing for a snug profile area */
-.sidebar {
-  width: 100%;
-  max-width: 250px;
-}
-
-.sidebar,
-.main-column {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* Card styles: this is used for most boxes on the page. */
-.profile-card,
-.sidebar-card,
-.hero-card,
-.section-card,
-.bio-card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 22px;
-  backdrop-filter: blur(10px);
-}
-
-.profile-card {
-  display: grid;
-  gap: 16px;
-}
-
+/* ----- Sidebar / profile ----- */
+.profile-card { display:grid; gap:16px; }
 .profile-image {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 22px;
-  background: linear-gradient(135deg, rgba(97, 171, 255, 0.25), rgba(246, 226, 133, 0.22));
-  border: 1px solid rgba(255,255,255,0.08);
-  display: grid;
-  place-items: center;
-  color: var(--text);
-  font-weight: 700;
+  /* square avatar placeholder; replace with <img> if you add a photo */
+  width:100%; aspect-ratio:1/1; border-radius:22px;
+  background:linear-gradient(135deg, rgba(97,171,255,0.25), rgba(246,226,133,0.22));
+  border:1px solid rgba(255,255,255,0.08); display:grid; place-items:center; font-weight:700;
 }
+.profile-card h1 { margin:0; font-size:1.9rem; }
+.profile-role, .eyebrow { margin:0; color:var(--accent); font-size:0.95rem; text-transform:uppercase; }
+.profile-text, .sidebar-card p, .hero-card p, .section-card p, .bio-card p { margin:0; color:var(--muted); line-height:1.7; }
+.sidebar-card ul { margin:16px 0 0; padding-left:18px; }
+.sidebar-card li { margin-bottom:10px; word-break:break-word; }
+.sidebar-card a { color:#e8f1ff; text-decoration:underline; }
 
-.profile-card h1 {
-  margin: 0;
-  font-size: 1.9rem;
-}
-
-.profile-role,
-.eyebrow {
-  margin: 0;
-  color: var(--accent);
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-}
-
-.profile-text,
-.sidebar-card p,
-.hero-card p,
-.section-card p,
-.bio-card p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.profile-stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.profile-stats div {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 16px;
-  text-align: center;
-}
-
-.profile-stats strong {
-  display: block;
-  font-size: 1.1rem;
-  margin-bottom: 6px;
-}
-
-.sidebar-nav {
-  display: grid;
-  gap: 10px;
-}
-
+.sidebar-nav { display:grid; gap:10px; }
 .sidebar-nav a {
-  color: var(--text);
-  text-decoration: none;
-  padding: 12px 16px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  /* pill-style links for quick navigation */
+  color:var(--text); text-decoration:none; padding:12px 16px; border-radius:999px;
+  background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
 }
+.sidebar-nav a:hover { background: rgba(255,255,255,0.08); }
 
-.sidebar-nav a:hover {
-  background: rgba(255,255,255,0.08);
+/* ----- Hero section ----- */
+.hero-card { display:grid; gap:22px; }
+.hero-card h1 { margin:0 0 16px; font-size:clamp(2.4rem,4vw,3.6rem); line-height:1.05; }
+.hero-actions { display:flex; flex-wrap:wrap; gap:16px; }
+
+/* Reusable button styles used for CTAs */
+.button { display:inline-flex; align-items:center; justify-content:center; padding:14px 24px; border-radius:999px;
+  background: linear-gradient(135deg, var(--accent), #ffe97e); color:#10213e; font-weight:700; text-decoration:none;
 }
+.button.ghost { background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.16); }
 
-.hero-card h1 {
-  margin: 0 0 16px;
-  font-size: clamp(2.4rem, 4vw, 3.6rem);
-  line-height: 1.05;
-}
+/* ----- Section headings and gallery ----- */
+.section-header { display:flex; justify-content:space-between; gap:20px; align-items:flex-end; }
+.section-header h2, .bio-card h2 { margin:0; }
+.gallery-layout { display:grid; gap:24px; margin-top:18px; }
 
-.hero-card {
-  display: grid;
-  gap: 22px;
-}
-
-/* Hero action buttons: show a row of clickable choices in the hero section. */
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-/* Button style used across the page for links and actions. */
-.button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, var(--accent), #ffe97e);
-  color: #10213e;
-  padding: 14px 24px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 700;
-}
-
-.button.ghost {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid rgba(255,255,255,0.16);
-}
-
-.section-card,
-.bio-card {
-  margin: 0;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  align-items: flex-end;
-}
-
-.section-header h2,
-.bio-card h2 {
-  margin: 0;
-}
-
-/* Art gallery layout: thumbnails across the top, large preview below */
-.gallery-layout {
-  display: grid;
-  gap: 24px;
-  margin-top: 18px;
-}
-
-/* Thumbnails: small artwork buttons that can be clicked to show each image. */
-.thumb-window {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
+/* Thumbnail scroller: left/right arrows and a horizontal row */
+.thumb-window { display:flex; align-items:center; gap:10px; }
 .thumb-row {
-  display: flex;
-  flex: 1 1 auto;
-  min-width: 0;
-  gap: 16px;
-  overflow: hidden;
-  padding-bottom: 8px;
-  max-width: 452px;
-  width: 100%;
-  scroll-behavior: smooth;
+  display:flex; flex:1 1 auto; min-width:0; gap:16px; overflow:hidden; padding-bottom:8px;
+  max-width:452px; width:100%; scroll-behavior:smooth; /* smooth scrolling for arrow clicks */
 }
+.thumb-arrow { width:44px; height:44px; border:1px solid rgba(255,255,255,0.08); border-radius:50%; background:rgba(255,255,255,0.05); cursor:pointer; }
+.thumb-arrow:hover { background: rgba(255,255,255,0.1); }
+.thumb-card { flex:0 0 140px; min-width:140px; border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:14px; background:rgba(255,255,255,0.05); cursor:pointer; }
+.thumb-card.active, .thumb-card:hover { background: rgba(246,226,133,0.16); border-color: rgba(246,226,133,0.3); }
+.thumb-card .card-image { height:100px; margin-bottom:12px; overflow:hidden; border-radius:18px; }
+.thumb-card .card-image img, .focus-large-image img { width:100%; height:100%; object-fit:cover; display:block; }
 
-.thumb-arrow {
-  width: 44px;
-  height: 44px;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-  color: var(--text);
-  cursor: pointer;
-}
-
-.thumb-arrow:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-.thumb-card {
-  flex: 0 0 140px;
-  min-width: 140px;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
-  background: rgba(255,255,255,0.05);
-  padding: 14px;
-  color: var(--text);
-  text-align: left;
-  cursor: pointer;
-}
-
-.thumb-card.active,
-.thumb-card:hover {
-  background: rgba(246, 226, 133, 0.16);
-  border-color: rgba(246, 226, 133, 0.3);
-}
-
-.thumb-card .card-image {
-  height: 100px;
-  margin-bottom: 12px;
-}
-
-.main-art-card-wrapper {
-  display: grid;
-  gap: 16px;
-}
-
-/* Main artwork preview: larger card with the featured art and description. */
-.main-art-card {
-  border: none;
-  width: 100%;
-  text-align: left;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 22px;
-  padding: 0;
-  cursor: pointer;
-}
-
-.main-art-card:hover {
-  border-color: rgba(246, 226, 133, 0.3);
-}
-
-.main-art-card .card-image {
-  height: 320px;
-  border-radius: 22px 22px 0 0;
-}
-
-.main-art-text {
-  padding: 22px;
-}
-
-.main-art-text h3 {
-  margin: 0 0 10px;
-}
-
-.gallery-note {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-/* Focus viewer overlay: shows the selected artwork in a larger modal */
-.focus-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(8, 27, 61, 0.88);
-  display: grid;
-  place-items: center;
-  z-index: 10;
-  padding: 24px;
-}
-
-.focus-panel {
-  width: min(980px, 100%);
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 26px;
-  padding: 28px;
-  position: relative;
-  display: grid;
-  gap: 20px;
-}
-
-.close-button {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  background: rgba(255,255,255,0.08);
-  border: none;
-  color: var(--text);
-  font-size: 1.8rem;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
+/* Focused artwork viewer (overlay) */
+.focus-overlay { width:100%; background:transparent; display:block; padding:0; margin:0; }
+.focus-panel { width:100%; max-width:980px; background:var(--panel); border:1px solid var(--border); border-radius:26px; padding:28px; display:grid; gap:20px; }
 .focus-large-image {
-  height: 420px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, rgba(97, 171, 255, 0.2), rgba(246, 226, 133, 0.18));
-  display: grid;
-  place-items: center;
-  color: var(--text);
-  font-size: 1.1rem;
+  border-radius:24px; background:linear-gradient(135deg, rgba(97,171,255,0.2), rgba(246,226,133,0.18));
+  display:flex; justify-content:center; align-items:center; padding:18px; max-height:60vh; width:100%; overflow:hidden;
 }
+.focus-large-image img { width:auto; max-width:100%; max-height:100%; object-fit:contain; display:block; }
+.focus-copy h3 { margin:0 0 10px; }
+.focus-copy p { margin:0; color:var(--muted); line-height:1.7; }
 
-.focus-copy h3 {
-  margin: 0 0 10px;
-}
+.hidden { display:none; }
 
-.focus-copy p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.7;
-}
+/* Small card type used for project entries */
+.card { background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:24px; }
+.card h3 { margin:0 0 10px; }
+.card p { margin:0; color:var(--muted); line-height:1.65; }
+.card-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; }
+.section-card h2, .bio-card h2 { margin-top:0; }
 
-/* Focus mode buttons: move between images while in the larger viewer. */
-.focus-controls {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
+/* Skill badges */
+.skill-list { display:flex; flex-wrap:wrap; gap:14px; margin-top:18px; }
+.skill-list span { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); padding:12px 14px; border-radius:999px; color:var(--text); }
 
-.focus-button {
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.05);
-  color: var(--text);
-  padding: 12px 18px;
-  border-radius: 999px;
-  cursor: pointer;
-}
+/* Footer */
+.site-footer { text-align:center; color:var(--muted); border-top:1px solid var(--border); padding:20px 0; }
 
-.focus-button:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-.hidden {
-  display: none;
-}
-
-.gallery-grid {
-  display: none;
-}
-
-.card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
-  padding: 24px;
-}
-
-.card h3 {
-  margin: 0 0 10px;
-}
-
-.card p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.65;
-}
-
-.section-card h2,
-.bio-card h2 {
-  margin-top: 0;
-}
-
-.skill-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 18px;
-}
-
-.skill-list span {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 12px 14px;
-  border-radius: 999px;
-  color: var(--text);
-  font-size: 0.95rem;
-}
-
-.site-footer {
-  text-align: center;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  padding: 20px 0;
-}
-
-/* Responsive layout adjustments for smaller screens */
+/* ----- Responsive tweaks ----- */
 @media (max-width: 980px) {
-  .page-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    order: 2;
-  }
-}
-
-@media (max-width: 840px) {
-  .gallery-grid,
-  .card-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .profile-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  .page-layout { grid-template-columns: 1fr; }
+  .sidebar { order: 2; }
+  .card-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {
-  .hero-card,
-  .section-card,
-  .bio-card,
-  .profile-card,
-  .sidebar-card {
-    padding: 22px;
-  }
-
-  .hero-card h1 {
-    font-size: 2rem;
-  }
-
-  .art-controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .tab,
-  .text-button {
-    width: 100%;
-    text-align: center;
-  }
+  /* Increase padding on small screens for comfortable touch targets */
+  .hero-card, .section-card, .bio-card, .profile-card, .sidebar-card { padding:22px; }
+  .hero-card h1 { font-size:2rem; }
 }
