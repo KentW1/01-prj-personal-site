@@ -133,6 +133,35 @@ img { max-width: 100%; display: block; }
 .card-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; }
 .section-card h2, .bio-card h2 { margin-top:0; }
 
+/* Cool repositories panel generated from JavaScript array */
+.repos-card { display:grid; gap:16px; }
+.repo-list { display:flex; flex-direction:column; gap:12px; }
+.repo-item {
+  background: rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:14px;
+  padding:14px 16px;
+}
+.repo-item a {
+  color:#e8f1ff;
+  text-decoration:underline;
+  font-weight:600;
+  word-break:break-word;
+}
+
+.repo-pagination { display:flex; align-items:center; gap:12px; margin-top:4px; }
+.repo-page-button {
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:999px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  padding:10px 14px;
+  cursor:pointer;
+}
+.repo-page-button:hover { background: rgba(255,255,255,0.1); }
+.repo-page-button:disabled { opacity:0.45; cursor:not-allowed; }
+.repo-page-info { color: var(--muted); font-size:0.95rem; }
+
 /* Skill badges */
 .skill-list { display:flex; flex-wrap:wrap; gap:14px; margin-top:18px; }
 .skill-list span { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); padding:12px 14px; border-radius:999px; color:var(--text); }

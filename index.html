@@ -65,6 +65,23 @@
         </div>
       </section>
 
+      <!-- COOL REPOSITORIES: generated from an editable JavaScript array -->
+      <section id="cool-repos" class="section-card repos-card">
+        <h2>Coolest Repositories</h2>
+        <p>This list is generated from a JavaScript array so you can quickly add, remove, or reorder links.</p>
+
+        <!-- JavaScript inserts repository cards into this container -->
+        <div id="repoList" class="repo-list">
+        </div>
+
+        <!-- Pagination appears only when there are more than 5 links -->
+        <div id="repoPagination" class="repo-pagination" aria-label="Repository list pages">
+          <button id="repoPrev" type="button" class="repo-page-button">Previous</button>
+          <span id="repoPageInfo" class="repo-page-info" aria-live="polite"></span>
+          <button id="repoNext" type="button" class="repo-page-button">Next</button>
+        </div>
+      </section>
+
       <!-- ART GALLERY: thumbnails + focused viewer
            Data-flow notes for maintainers:
            - Thumbnails are buttons with `data-index` attributes (0..n).
@@ -181,7 +198,7 @@
       <section id="bio" class="section-card bio-card">
         <!-- Bio section: this is where you write about yourself and your learning goals. -->
         <h2>About Me</h2>
-        <p>Hey! I'm Kent, I'm a 21 year old (as of 2026), a California native, and a Computer Science student at the University of Utah. I like to ski, play video games, write sophisticated programs, and explore new technologies. I'm passionate about creating code that makes a difference, whether it be for cybersecurity or game development.</p>
+        <p>Hey! I'm Kent, I'm a 21 year old (as of 2026), a California native, and a Computer Science student at the University of Utah. I like to ski, play video games, write sophisticated programs, and explore new technologies. I like writing code that I think would make an impact, and I view writing code almost like a work of art.</p>
 
         <p>I'm passionate about learning about new technologies and improving my coding skills. Additionally, I have great interest in the field of AI and how it can be applied to solve real-world problems.</p>
 
@@ -216,6 +233,97 @@
     const focusLargeImage = document.querySelector('#artFocus .focus-large-image img');
     const focusTitle = document.querySelector('#artFocus .focus-copy h3');
     const focusDescription = document.querySelector('#artFocus .focus-copy p');
+
+    // ===== Coolest Repositories JavaScript =====
+    const repoList = document.querySelector('#repoList');
+    const repoPagination = document.querySelector('#repoPagination');
+    const repoPrev = document.querySelector('#repoPrev');
+    const repoNext = document.querySelector('#repoNext');
+    const repoPageInfo = document.querySelector('#repoPageInfo');
+
+    // Edit this array to add/remove repository links.
+    const repoItems = [
+      {
+        title: 'Backpacking Simulator',
+        url: 'https://github.com/UofU-CS3505/cs3505-assignment9-GreenGoombas',
+      },
+      {
+        title: 'Signal_Breach',
+        url: 'https://github.com/sorrycc/awesome-javascript',
+      },
+      {
+        title: 'Markov Text Generator Assignment',
+        url: 'https://github.com/KentW1/markov-text-generator',
+      },
+      {
+        title: 'Spreadsheet Assignment',
+        url: 'https://github.com/uofu-cs3500-20-fall2025/spreadsheet-KentW1',
+      },
+      {
+        title: 'L\'Oreal Chatbot',
+        url: 'https://github.com/KentW1/L-Oreal-Chatbot',
+      },
+      {
+        title: 'Untitled Cat Game',
+        url: 'https://krunchr.itch.io/untitled-cat-game',
+      }
+    ];
+
+    const REPOS_PER_PAGE = 5;
+    let currentRepoPage = 1;
+
+    function renderRepositories() {
+      if (!repoList || !repoPagination || !repoPrev || !repoNext || !repoPageInfo) {
+        return;
+      }
+
+      const totalPages = Math.max(1, Math.ceil(repoItems.length / REPOS_PER_PAGE));
+      if (currentRepoPage > totalPages) {
+        currentRepoPage = totalPages;
+      }
+
+      const start = (currentRepoPage - 1) * REPOS_PER_PAGE;
+      const visibleRepos = repoItems.slice(start, start + REPOS_PER_PAGE);
+
+      repoList.innerHTML = '';
+      visibleRepos.forEach((repo) => {
+        const card = document.createElement('article');
+        card.className = 'repo-item';
+
+        const link = document.createElement('a');
+        link.href = repo.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = repo.title;
+
+        card.appendChild(link);
+        repoList.appendChild(card);
+      });
+
+      const needsPagination = repoItems.length > REPOS_PER_PAGE;
+      repoPagination.classList.toggle('hidden', !needsPagination);
+
+      repoPageInfo.textContent = 'Page ' + currentRepoPage + ' of ' + totalPages;
+      repoPrev.disabled = currentRepoPage === 1;
+      repoNext.disabled = currentRepoPage === totalPages;
+    }
+
+    if (repoPrev && repoNext) {
+      repoPrev.addEventListener('click', () => {
+        if (currentRepoPage > 1) {
+          currentRepoPage -= 1;
+          renderRepositories();
+        }
+      });
+
+      repoNext.addEventListener('click', () => {
+        const totalPages = Math.max(1, Math.ceil(repoItems.length / REPOS_PER_PAGE));
+        if (currentRepoPage < totalPages) {
+          currentRepoPage += 1;
+          renderRepositories();
+        }
+      });
+    }
 
     // List of artwork details that match the thumbnails in order.
     const artItems = [
@@ -271,6 +379,7 @@
     thumbLeft.addEventListener('click', () => scrollThumbnails(-1));
     thumbRight.addEventListener('click', () => scrollThumbnails(1));
     updateArtwork(0);
+    renderRepositories();
 
   </script>
 </body>
